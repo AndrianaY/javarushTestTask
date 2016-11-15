@@ -10,15 +10,15 @@
 </head>
 <body>
 
-<a href="<c:url value="/index" />">
-    <spring:message code="label.contacts" />
-</a><br/>
+<%--<a href="<c:url value="/index" />">--%>
+    <%--<spring:message code="label.contacts" />--%>
+<%--</a><br/>--%>
 
 <c:if test="${not empty param.error}">
     <font color="red"> <spring:message code="label.loginerror" />
         : ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message} </font>
 </c:if>
-<form method="POST" action="<c:url value="/j_spring_security_check" />">
+<form method="POST" action="<c:"bxfgb value="/j_spring_security_check" />">
     <table>
         <tr>
             <td align="right"><spring:message code="label.login" /></td>

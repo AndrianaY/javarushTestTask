@@ -1,4 +1,4 @@
-package com.javarush.mvcapp.controllers;
+package com.javarush.mvcapp.web;
 
 import com.javarush.mvcapp.domain.User;
 import com.javarush.mvcapp.service.UserService;

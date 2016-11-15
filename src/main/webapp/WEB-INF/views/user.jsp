@@ -8,16 +8,17 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
     <title><spring:message code="label.title" /></title>
+    <title> "rdthrhr" </title>
 </head>
 <body>
 
-<%--<a href="<c:url var = "rewtrewty" value="/logout" />">--%>
-    <%--<spring:message code="label.logout" />--%>
-<%--</a>--%>
+<a href="<c:url value="/logout" />">
+    <spring:message code="label.logout" />
+</a>
 
 <h2><spring:message code="label.title" /></h2>
 
-<form:form method="post" action="add" commandName="contact">
+<form:form method="post" action="add" commandName="user">
 
     <table>
         <tr>
@@ -60,12 +61,12 @@
             <th><spring:message code="label.telephone" /></th>
             <th>&nbsp;</th>
         </tr>
-        <c:forEach items="${userList}" var="contact">
+        <c:forEach items="${userList}" var="user">
             <tr>
-                <td>${contact.lastname}, ${contact.firstname}</td>
-                <td>${contact.email}</td>
-                <td>${contact.telephone}</td>
-                <td><a href="delete/${contact.id}"><spring:message code="label.delete" /></a></td>
+                <td>${user.lastname}, ${user.firstname}</td>
+                <td>${user.email}</td>
+                <td>${user.telephone}</td>
+                <td><a href="delete/${user.id}"><spring:message code="label.delete" /></a></td>
             </tr>
         </c:forEach>
     </table>
