@@ -1,11 +1,3 @@
-CREATE TABLE Users (
-  id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  firstName VARCHAR (50),
-  lastName VARCHAR (50),
-  telephone VARCHAR (25),
-  email VARCHAR (50),
-  PRIMARY KEY (id)
-);
 
 insert into users (firstName, lastName, telephone, email) VALUES ('Andriana', 'yarmoliuk', '95476345', 'ersgr5674eswg');
 insert into users (firstName, lastName, telephone, email) VALUES ('Andriftgeana', 'yarmor4wh5rtliuk', '954763rtgh45', 'ersgr447eswg');
