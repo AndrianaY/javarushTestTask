@@ -3,6 +3,7 @@ package com.javarush.mvcapp.service;
 import com.javarush.mvcapp.dao.UserDao;
 import com.javarush.mvcapp.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.List;
 /**
  * Created by Andriana on 14.11.2016.
  */
+
+@Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
