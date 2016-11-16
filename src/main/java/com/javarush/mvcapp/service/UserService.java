@@ -1,7 +1,6 @@
 package com.javarush.mvcapp.service;
 
 import com.javarush.mvcapp.domain.User;
-
 import java.util.List;
 
 /**
@@ -14,5 +13,9 @@ public interface UserService {
 
     public void removeUser(Integer id);
 
-    public void updateUSer(Integer id);
+    public void updateUser(User user);
+
+    public User getUser(Integer id);
+
+    public User getUser();
 }

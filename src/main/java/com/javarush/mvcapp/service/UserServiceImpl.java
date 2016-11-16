@@ -34,7 +34,17 @@ public class UserServiceImpl implements UserService {
     }
     @Transactional
     @Override
-    public void updateUSer(Integer id) {
-        //TODO
+    public void updateUser(User user) {
+        userDao.updateUser(user);
+    }
+    @Transactional
+    @Override
+    public User getUser(Integer id) {
+        return userDao.getUserById(id);
+    }
+    @Transactional
+    @Override
+    public User getUser() {
+        return userDao.getNewUser();
     }
 }

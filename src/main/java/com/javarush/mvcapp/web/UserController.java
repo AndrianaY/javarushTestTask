@@ -4,59 +4,65 @@ import com.javarush.mvcapp.domain.User;
 import com.javarush.mvcapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.Map;
-
+import org.springframework.web.servlet.ModelAndView;
+import java.util.List;
 /**
  * Created by Andriana_Yarmoliuk on 11/11/2016.
  */
 @Controller
 public class UserController {
-//
-//    private int visitorCount = 0;
-//
-//    @RequestMapping("/index.html")
-//    public String index(Model model) {
-//        model.addAttribute("visitorCount", visitorCount++);
-//        return "WEB-INF/jsp/index.jsp";
-//    }
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/index")
-    public String listContacts(Map<String, Object> map) {
-
-        map.put("user", new User());
-        map.put("userList", userService.listUser());
-
-        return "user";
-    }
-
     @RequestMapping("/")
     public String home() {
-        return "redirect:/index";
+        return "redirect:/usersview";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user") User user,
-                             BindingResult result) {
-
+    /*It displays a form to input data, here "command" is a reserved request attribute
+     *which is used to display object data into form
+     */
+    @RequestMapping("/userform")
+    public ModelAndView showform(){
+        return new ModelAndView("userform","command", userService.getUser());
+    }
+    /*It saves object into database. The @ModelAttribute puts request data
+     *  into model object. You need to mention RequestMethod.POST method
+     *  because default request is GET*/
+    @RequestMapping(value="/save", method = RequestMethod.POST)
+    public ModelAndView save(@ModelAttribute("user") User user){
         userService.addUser(user);
-
-        return "redirect:/index";
+        return new ModelAndView("redirect:/usersview");//will redirect to usersview request mapping
+    }
+    /* It provides list of users in model object */
+    @RequestMapping("/usersview")
+    public ModelAndView viewemp(){
+        List<User> list=userService.listUser();
+        return new ModelAndView("usersview","list",list);
+    }
+    /* It displays object data into form for the given id.
+     * The @PathVariable puts URL data into variable.*/
+    @RequestMapping(value="/edit/{id}")
+    public ModelAndView edit(@PathVariable int id){
+        User user = userService.getUser(id);
+        return new ModelAndView("usereditform","command", user);
+    }
+    /* It updates model object. */
+    @RequestMapping(value="/editsave",method = RequestMethod.POST)
+    public ModelAndView editsave(@ModelAttribute("user") User user){
+        userService.updateUser(user);
+        return new ModelAndView("redirect:/usersview");
+    }
+    /* It deletes record for the given id in URL and redirects to /usersview */
+    @RequestMapping(value="/delete/{id}",method = RequestMethod.GET)
+    public ModelAndView delete(@PathVariable int id){
+        userService.removeUser(id);
+        return new ModelAndView("redirect:/usersview");
     }
 
-    @RequestMapping("/delete/{userId}")
-    public String deleteUser(@PathVariable("userId") Integer userId) {
-
-        userService.removeUser(userId);
-
-        return "redirect:/index";
-    }
 }
