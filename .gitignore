@@ -23,6 +23,7 @@ gen### Java template
 hs_err_pid*
 
 src/test/
+target/classes/
 target/classes/com/
 target/classes/hibernate.cfg.xml
 target/classes/log4j.xml
