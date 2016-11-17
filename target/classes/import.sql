@@ -1,4 +1,3 @@
-
 insert into users (firstName, lastName, telephone, email) VALUES ('Andriana', 'yarmoliuk', '95476345', 'ersgr5674eswg');
 insert into users (firstName, lastName, telephone, email) VALUES ('Andriftgeana', 'yarmor4wh5rtliuk', '954763rtgh45', 'ersgr447eswg');
 insert into users (firstName, lastName, telephone, email) VALUES ('Anddrebtredtriana', 'yartrbhmoliuk', '9547rtbh6345', 'ers45645gr4eswg');
