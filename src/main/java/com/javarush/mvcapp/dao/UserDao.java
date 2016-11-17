@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserDao {
     public void addUser(User user);
 
-    public List<User> listUser();
+    public List<User> listUser(Integer offset, Integer maxResults);
 
     public void removeUser(Integer id);
 
@@ -19,4 +19,10 @@ public interface UserDao {
     public User getUserById(Integer id);
 
     public User getNewUser();
+
+    public Integer count();
+
+    public List<User> listUser();
+//
+//    public void save();
 }

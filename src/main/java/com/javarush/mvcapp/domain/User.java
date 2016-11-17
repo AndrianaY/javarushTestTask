@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 
 /**
  * Created by Andriana on 14.11.2016.
@@ -18,19 +19,27 @@ public class User {
         @GeneratedValue
         private Integer id;
 
-        @Column(name = "FIRSTNAME")
-        private String firstname;
+        @Column(name = "Name")
+        private String name;
 
-        @Column(name = "LASTNAME")
-        private String lastname;
+        @Column(name = "AGE")
+        private int age;
 
-        @Column(name = "EMAIL")
-        private String email;
+        @Column(name = "ISADMIN")
+        private boolean isAdmin;
 
-        @Column(name = "TELEPHONE")
-        private String telephone;
+        @Column(name = "CREATEDATE")
+        private Timestamp createdate;
 
-        // Getters and setters
+    public User(String name, int age){
+        this.name = name;
+        this.age = age;
+    }
+
+    public User() {
+    }
+
+    // Getters and setters
 
         public Integer getId() {
                 return id;
@@ -40,35 +49,35 @@ public class User {
                 this.id = id;
         }
 
-        public String getFirstname() {
-                return firstname;
+        public String getName() {
+                return name;
         }
 
-        public void setFirstname(String firstname) {
-                this.firstname = firstname;
+        public void setName(String firstname) {
+                this.name = firstname;
         }
 
-        public String getLastname() {
-                return lastname;
+        public int getAge() {
+                return age;
         }
 
-        public void setLastname(String lastname) {
-                this.lastname = lastname;
+        public void setAge(int age) {
+                this.age = age;
         }
 
-        public String getEmail() {
-                return email;
+        public boolean getIsAdmin() {
+                return isAdmin;
         }
 
-        public void setEmail(String email) {
-                this.email = email;
+        public void setIsAdmin(boolean email) {
+                this.isAdmin = email;
         }
 
-        public String getTelephone() {
-                return telephone;
+        public Timestamp getCreatedate() {
+                return createdate;
         }
 
-        public void setTelephone(String telephone) {
-                this.telephone = telephone;
+        public void setCreatedate(Timestamp telephone) {
+                this.createdate = telephone;
         }
 }

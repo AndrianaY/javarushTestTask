@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserService {
     public void addUser(User user);
 
-    public List<User> listUser();
+    public List<User> listUser(Integer offset, Integer maxResults);
 
     public void removeUser(Integer id);
 
@@ -18,4 +18,11 @@ public interface UserService {
     public User getUser(Integer id);
 
     public User getUser();
+
+
+//
+    public Integer count();
+
+    public List<User> listUser();
+//    public void save();
 }

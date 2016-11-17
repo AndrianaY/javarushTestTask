@@ -24,9 +24,17 @@ public class UserServiceImpl implements UserService {
     }
     @Transactional
     @Override
+    public List<User> listUser(Integer offset, Integer maxResults) {
+        return userDao.listUser(offset, maxResults);
+    }
+
+    @Transactional
+    @Override
     public List<User> listUser() {
         return userDao.listUser();
     }
+
+
     @Transactional
     @Override
     public void removeUser(Integer id) {
@@ -47,4 +55,16 @@ public class UserServiceImpl implements UserService {
     public User getUser() {
         return userDao.getNewUser();
     }
+
+    @Override
+    public Integer count() {
+        return userDao.count();
+    }
+
+
+//
+//    @Override
+//    public void save() {
+//        userDao.save();
+//    }
 }
