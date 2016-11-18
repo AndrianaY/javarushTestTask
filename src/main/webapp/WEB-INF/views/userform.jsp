@@ -5,20 +5,20 @@
 <form:form method="post" action="save">
     <table >
         <tr>
-            <td>Firstname : </td>
-            <td><form:input path="firstname"  /></td>
+            <td>Name : </td>
+            <td><form:input path="name"  /></td>
         </tr>
         <tr>
-            <td>Lastname :</td>
-            <td><form:input path="lastname" /></td>
+            <td>Age :</td>
+            <td><form:input path="age" /></td>
         </tr>
         <tr>
-            <td>Telephone :</td>
-            <td><form:input path="telephone" /></td>
+            <td>isAdmin :</td>
+            <td><form:input path="isAdmin" /></td>
         </tr>
         <tr>
-            <td>Email :</td>
-            <td><form:input path="email" /></td>
+            <td>create date :</td>
+            <td><form:input path="createdate" /></td>
         </tr>
         <tr>
             <td> </td>
