@@ -41,9 +41,10 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void removeUser(Integer id) {
+    public void removeUser(String id) {
+        int intId = Integer.parseInt(id);
         User user = (User) sessionFactory.getCurrentSession().load(
-                User.class, id);
+                User.class, intId);
         if (null != user) {
             sessionFactory.getCurrentSession().delete(user);
         }
@@ -55,8 +56,8 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public User getUserById(Integer id) {
-        User user = (User) sessionFactory.getCurrentSession().get(User.class, id);
+    public User getUserById(String id) {
+        User user = (User) sessionFactory.getCurrentSession().get(User.class, Integer.parseInt(id));
         return user;
     }
 

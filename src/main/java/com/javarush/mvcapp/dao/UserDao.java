@@ -1,6 +1,7 @@
 package com.javarush.mvcapp.dao;
 
 import com.javarush.mvcapp.domain.User;
+import org.hibernate.Criteria;
 
 import java.util.List;
 
@@ -12,17 +13,19 @@ public interface UserDao {
 
     public List<User> listUser(Integer offset, Integer maxResults);
 
-    public void removeUser(Integer id);
+    public void removeUser(String id);
 
     public void updateUser(User user);
 
-    public User getUserById(Integer id);
+    public User getUserById(String id);
 
     public User getNewUser();
 
     public Integer count();
 
     public List<User> listUser();
+
+//    public Criteria createEntityCriteria();
 //
 //    public void save();
 }

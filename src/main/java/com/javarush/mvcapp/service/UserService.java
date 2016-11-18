@@ -11,11 +11,11 @@ public interface UserService {
 
     public List<User> listUser(Integer offset, Integer maxResults);
 
-    public void removeUser(Integer id);
+    public void removeUser(String id);
 
     public void updateUser(User user);
 
-    public User getUser(Integer id);
+    public User getUser(String id);
 
     public User getUser();
 
