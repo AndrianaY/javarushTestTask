@@ -72,10 +72,10 @@
         </c:forEach>
         </tbody>
     </table>
-    <tag:paginate max="15" offset="${offset}" count="${count}"
+    <tag:paginate max="7" offset="${offset}" count="${count}"
                   uri="/usersview" next="&raquo;" previous="&laquo;" />
 </div>
-<button type="submit" class="well" href="userform">Add New User</button>
+<button href="userform">Add New User</button>
 
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
