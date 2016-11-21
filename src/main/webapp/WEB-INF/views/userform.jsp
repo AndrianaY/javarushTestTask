@@ -12,44 +12,19 @@
     <link href="<c:url value='/static/css/app.css' />" rel="stylesheet">
 </head>
 
-<%--<body>--%>
-<%--<div class="generic-container">--%>
-    <%--<div class="panel panel-default">--%>
-        <%--<div class="panel-heading"><span class="lead"><strong>Add New User</h1></strong></span></div>--%>
-<%--<form:form method="post" action="save">--%>
-    <%--<table >--%>
-        <%--<tr>--%>
-            <%--<td>Name : </td>--%>
-            <%--<td><form:input path="name"  /></td>--%>
-        <%--</tr>--%>
-        <%--<tr>--%>
-            <%--<td>Age :</td>--%>
-            <%--<td><form:input path="age" /></td>--%>
-        <%--</tr>--%>
-        <%--<tr>--%>
-            <%--<td>isAdmin :</td>--%>
-            <%--<td><form:input path="isAdmin" /></td>--%>
-        <%--</tr>--%>
-        <%--<tr>--%>
-            <%--<td>create date :</td>--%>
-            <%--<td><form:input path="createdate" /></td>--%>
-        <%--</tr>--%>
-        <%--<tr>--%>
-            <%--<td> </td>--%>
-            <%--<td><input type="submit" value="Save" /></td>--%>
-        <%--</tr>--%>
-    <%--</table>--%>
-<%--</form:form>--%>
-        <%--</div>--%>
-    <%--</div>--%>
-
-<%--</body>--%>
-<%--</html>--%>
-
 <body>
-
 <div class="generic-container">
-    <div class="well lead">User Registration Form</div>
+
+    <c:choose>
+        <c:when test="${edit}">
+            <div class="well lead">User Editing Form</div>
+        </c:when>
+        <c:otherwise>
+            <div class="well lead">User Registration Form</div>
+        </c:otherwise>
+    </c:choose>
+
+
     <form:form method="POST" modelAttribute="user" class="form-horizontal">
         <form:input type="hidden" path="id" id="id"/>
 
@@ -67,7 +42,7 @@
 
         <div class="row">
             <div class="form-group col-md-12">
-                <label class="col-md-3 control-lable" for="age">Last Name</label>
+                <label class="col-md-3 control-lable" for="age">Age</label>
                 <div class="col-md-7">
                     <form:input type="text" path="age" id="age" class="form-control input-sm" />
                     <%--<div class="has-error">--%>
@@ -79,7 +54,7 @@
 
         <div class="row">
             <div class="form-group col-md-12">
-                <label class="col-md-3 control-lable" for="isAdmin">Last Name</label>
+                <label class="col-md-3 control-lable" for="isAdmin">Profile type</label>
                 <div class="col-md-7">
                     <form:input type="text" path="isAdmin" id="isAdmin" class="form-control input-sm" />
                     <%--<div class="has-error">--%>
@@ -91,9 +66,9 @@
 
         <div class="row">
             <div class="form-group col-md-12">
-                <label class="col-md-3 control-lable" for="createdate">Email</label>
+                <label class="col-md-3 control-lable" for="createdate">create date</label>
                 <div class="col-md-7">
-                    <form:input type="text" path="createdate" id="createdate" class="form-control input-sm" />
+                    <form:input type="text" readonly="true" path="createdate" id="createdate" class="form-control input-sm" modelAttribute="date" value="${date}"/>
                     <%--<div class="has-error">--%>
                         <%--<form:errors path="createdate" class="help-inline"/>--%>
                     <%--</div>--%>

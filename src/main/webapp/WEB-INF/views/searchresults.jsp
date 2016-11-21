@@ -17,12 +17,8 @@
     <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading"><span class="lead"><strong>List of Javarush Users </strong></span></div>
-        <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search" >
-            </div>
-            <button><a href="<c:url value='/search-user-${pageContext}' />" type="submit" class="well">Submit</a></button>
-        </form>
+
+        <form:form method="POST" modelAttribute="searchResults" class="form-horizontal">
         <table class="table table-hover">
             <thead>
             <tr>
@@ -36,7 +32,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${users}" var="user" varStatus="itr">
+            <c:forEach items="${searchResults}" var="user" varStatus="itr">
                 <tr>
                     <td>${offset + itr.index +1 }</td>
                     <td>${user.name }</td>

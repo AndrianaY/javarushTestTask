@@ -55,6 +55,11 @@ public class UserServiceImpl implements UserService {
     public User getUser() {
         return userDao.getNewUser();
     }
+    @Transactional
+    @Override
+    public List<User> searchUser(String searchText, Integer offset, Integer maxResults) {
+        return userDao.searchUser(searchText, offset, maxResults);
+    }
 
     @Override
     public Integer count() {

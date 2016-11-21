@@ -7,11 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
 import java.util.List;
 /**
  * Created by Andriana_Yarmoliuk on 11/11/2016.
@@ -56,6 +55,8 @@ public class UserController {
         User user = new User();
         model.addAttribute("user", user);
         model.addAttribute("edit", false);
+        java.sql.Timestamp sqlNow=new java.sql.Timestamp(new java.util.Date().getTime());
+        model.addAttribute("date", sqlNow);
         return "userform";
     }
     @RequestMapping(value = { "/newuser" }, method = RequestMethod.POST)
@@ -132,4 +133,58 @@ String[]{user.getSsoId()}, Locale.getDefault()));
         return "redirect:/usersview";
     }
 
+    @RequestMapping(value = "/search-user{text}", method = RequestMethod.GET)
+    public String search(String q, Model model, Integer offset, Integer maxResults) {
+        List searchResults = null;
+        try {
+            searchResults = userService.searchUser(q, offset, maxResults);
+        }
+        catch (Exception ex) {
+            // here you should handle unexpected errors
+            // ...
+            // throw ex;
+        }
+        model.addAttribute("searchResults", searchResults);
+        model.addAttribute("count", userService.count());
+        model.addAttribute("offset", offset);
+        return "redirect:/searchresults";
+    }
+
+    @RequestMapping(value = "/search-user{text}", method = RequestMethod.POST)
+    public String searchList(Model model){
+        return "";
+    }
+
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public ModelAndView searchPage()
+    {
+        ModelAndView mav = new ModelAndView("search");
+        return mav;
+    }
+
+    @RequestMapping(value = "/doSearch", method = RequestMethod.POST)
+    public ModelAndView search(
+            @RequestParam("searchText")
+                    String searchText
+    ) throws Exception
+    {
+        List<User> allFound = _repo.searchForBook(searchText);
+        List<User> bookModels = new ArrayList<User>();
+
+        for (User b : allFound)
+        {
+            User bm = new User();
+//            bm.setBookAuthor(b.getAuthor());
+//            bm.setBookDescription(b.getDescription());
+//            bm.setBookTitle(b.getTitle());
+
+            bookModels.add(bm);
+        }
+
+        ModelAndView mav = new ModelAndView("foundBooks");
+        mav.addObject("foundBooks", bookModels);
+        return mav;
+    }
+}
 }

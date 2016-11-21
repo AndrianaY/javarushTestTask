@@ -1,5 +1,7 @@
 package com.javarush.mvcapp.domain;
 
+import org.hibernate.search.annotations.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,22 +14,24 @@ import java.sql.Timestamp;
  */
 
 @Entity
+@Indexed
 @Table(name = "USERS")
 public class User {
         @Id
         @Column(name = "ID")
         @GeneratedValue
         private Integer id;
-
+        @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
         @Column(name = "Name")
         private String name;
-
+        @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
         @Column(name = "AGE")
         private int age;
 
         @Column(name = "ISADMIN")
         private boolean isAdmin;
 
+        @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
         @Column(name = "CREATEDATE")
         private Timestamp createdate;
 

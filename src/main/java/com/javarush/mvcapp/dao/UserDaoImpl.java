@@ -3,6 +3,9 @@ package com.javarush.mvcapp.dao;
 import com.javarush.mvcapp.domain.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -39,6 +42,28 @@ public class UserDaoImpl implements UserDao{
                 .list();
 
     }
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<User> searchUser(String searchText, Integer offset, Integer maxResults) {
+
+            FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
+
+            QueryBuilder qb = fullTextSession.getSearchFactory()
+                    .buildQueryBuilder().forEntity(User.class).get();
+            org.apache.lucene.search.Query query = qb
+                    .keyword().onFields("name", "age", "createdate")
+                    .matching(searchText)
+                    .createQuery();
+
+            org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(query, User.class);
+
+            List<User> results = hibQuery.setFirstResult(offset!=null?offset:0)
+                .setMaxResults(maxResults!=null?maxResults:10).list();
+            return results;
+
+    }
+
+
 
     @Override
     public void removeUser(String id) {
