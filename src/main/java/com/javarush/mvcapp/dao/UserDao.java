@@ -1,7 +1,6 @@
 package com.javarush.mvcapp.dao;
 
 import com.javarush.mvcapp.domain.User;
-import org.hibernate.Criteria;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public interface UserDao {
 
     public User getNewUser();
 
-    public Integer count();
+    public Long count();
 
     public List<User> listUser();
 

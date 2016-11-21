@@ -32,7 +32,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${allFound}" var="user" varStatus="itr">
+            <c:forEach items="${searchresults}" var="user" varStatus="itr">
                 <tr>
                     <td>${offset + itr.index +1 }</td>
                     <td>${user.name }</td>
@@ -48,7 +48,11 @@
         <tag:paginate max="10" offset="${offset}" count="${count}"
                       uri="/usersview" next="&raquo;" previous="&laquo;" />
         </form:form>
-        <button type="submit" class="well"><a href="/newuser">Add New User</a></button>
+
+        <span class="well floatRight">
+        Go to <a href="<c:url value='/usersview' />">Back to users List</a>
+        </span>
+        <%--<button type="submit" class="well"><a href="/newuser">Add New User</a></button>--%>
     </div>
 </div>
 

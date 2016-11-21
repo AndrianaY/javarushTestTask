@@ -21,7 +21,7 @@ public interface UserService {
 
     public List<User> searchUser(String searchText);
 //
-    public Integer count();
+    public Long count();
 
     public List<User> listUser();
 //    public void save();

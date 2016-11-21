@@ -56,7 +56,7 @@ public class UserDaoImpl implements UserDao{
         QueryBuilder qb = fullTextSession.getSearchFactory()
                     .buildQueryBuilder().forEntity(User.class).get();
             org.apache.lucene.search.Query query = qb
-                    .keyword().onFields("name", "age", "createdate")
+                    .keyword().onFields("name")
                     .matching(searchText)
                     .createQuery();
 
@@ -96,8 +96,8 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public Integer count() {
-        return (Integer) sessionFactory.openSession()
+    public Long count() {
+        return (Long) sessionFactory.openSession()
                 .createCriteria(User.class)
                 .setProjection(Projections.rowCount())
                 .uniqueResult();
