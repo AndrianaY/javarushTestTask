@@ -16,9 +16,9 @@
 <div class="generic-container" width="100%">
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading"><span class="lead"><strong>List of Javarush Users </strong></span></div>
+        <div class="panel-heading"><span class="lead"><strong>List of founded by "${searchedtext}" Javarush Users </strong></span></div>
 
-        <form:form method="POST" modelAttribute="searchresults" class="form-horizontal">
+        <form:form method="POST" class="form-horizontal">
         <table class="table table-hover">
             <thead>
             <tr>
@@ -40,7 +40,7 @@
                     <th>${user.isAdmin }</th>
                     <th>${user.createdate}</th>
                     <td><a href="<c:url value='/edit-user-${user.id}' />" class="btn btn-success custom-width">edit</a></td>
-                    <td><a href="<c:url value='/delete-user-${user.id}' />" class="btn btn-danger custom-width">delete</a></td>
+                    <td><a href="<c:url value='/delete-${searchedtext}-user-${user.id}' />" class="btn btn-danger custom-width">delete</a></td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -50,9 +50,8 @@
         </form:form>
 
         <span class="well floatRight">
-        Go to <a href="<c:url value='/usersview' />">Back to users List</a>
+        Go back to <a href="<c:url value='/usersview' />">Users List</a>
         </span>
-        <%--<button type="submit" class="well"><a href="/newuser">Add New User</a></button>--%>
     </div>
 </div>
 

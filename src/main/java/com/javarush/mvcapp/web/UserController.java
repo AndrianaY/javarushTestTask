@@ -2,6 +2,7 @@ package com.javarush.mvcapp.web;
 
 import com.javarush.mvcapp.domain.User;
 import com.javarush.mvcapp.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,14 +75,24 @@ public class UserController {
         return "redirect:/usersview";
     }
 
+    @RequestMapping(value="/delete-{searched}-user-{id}",method = RequestMethod.GET)
+    public String deleteSearchedUser(@PathVariable String id, String text, Model model){
+        userService.removeUser(id);
+        model.addAttribute("searchedtext", text);
+        return "searchresults";
+    }
+
     @RequestMapping(value = "/doSearch", method = RequestMethod.POST)
-    public ModelAndView search(@RequestParam("searchText") String searchText) throws Exception
+    public String search(@RequestParam("searchText") String searchText, Model model) throws Exception
     {
         List<User> allFound = userService.searchUser(searchText);
-        ModelAndView mav = new ModelAndView("searchresults");
-        mav.addObject("searchresults", allFound);
+        model.addAttribute("searchresults", allFound);
+        model.addAttribute("searchedtext", searchText);
+
+//        ModelAndView mav = new ModelAndView("searchresults");
+//        mav.addObject("searchresults", allFound);
 //    mav.addObject("searchedtext", searchText);
-        return mav;
+        return "searchresults";
     }
 }
 
