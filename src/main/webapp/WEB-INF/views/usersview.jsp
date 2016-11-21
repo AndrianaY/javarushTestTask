@@ -17,11 +17,11 @@
     <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading"><span class="lead"><strong>List of Javarush Users </strong></span></div>
-        <form class="navbar-form navbar-left" role="search">
+        <form class="navbar-form navbar-left" role="search" action="doSearch" method="post">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search" >
+                <input type="text" class="form-control" placeholder="Search" name="searchText" /><br/>
             </div>
-            <button><a href="<c:url value='/search-user-${pageContext}' />" type="submit" class="well">Submit</a></button>
+            <button type="submit" class="well">Submit</button>
         </form>
         <table class="table table-hover">
             <thead>

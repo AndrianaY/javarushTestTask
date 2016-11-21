@@ -18,7 +18,7 @@
         <!-- Default panel contents -->
         <div class="panel-heading"><span class="lead"><strong>List of Javarush Users </strong></span></div>
 
-        <form:form method="POST" modelAttribute="searchResults" class="form-horizontal">
+        <form:form method="POST" modelAttribute="searchresults" class="form-horizontal">
         <table class="table table-hover">
             <thead>
             <tr>
@@ -32,7 +32,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${searchResults}" var="user" varStatus="itr">
+            <c:forEach items="${allFound}" var="user" varStatus="itr">
                 <tr>
                     <td>${offset + itr.index +1 }</td>
                     <td>${user.name }</td>
@@ -47,7 +47,7 @@
         </table>
         <tag:paginate max="10" offset="${offset}" count="${count}"
                       uri="/usersview" next="&raquo;" previous="&laquo;" />
-
+        </form:form>
         <button type="submit" class="well"><a href="/newuser">Add New User</a></button>
     </div>
 </div>

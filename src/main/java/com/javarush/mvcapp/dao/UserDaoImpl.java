@@ -44,11 +44,16 @@ public class UserDaoImpl implements UserDao{
     }
     @SuppressWarnings("unchecked")
     @Override
-    public List<User> searchUser(String searchText, Integer offset, Integer maxResults) {
+    public List<User> searchUser(String searchText) {
 
             FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
+        try {
+            fullTextSession.createIndexer().startAndWait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-            QueryBuilder qb = fullTextSession.getSearchFactory()
+        QueryBuilder qb = fullTextSession.getSearchFactory()
                     .buildQueryBuilder().forEntity(User.class).get();
             org.apache.lucene.search.Query query = qb
                     .keyword().onFields("name", "age", "createdate")
@@ -57,8 +62,7 @@ public class UserDaoImpl implements UserDao{
 
             org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(query, User.class);
 
-            List<User> results = hibQuery.setFirstResult(offset!=null?offset:0)
-                .setMaxResults(maxResults!=null?maxResults:10).list();
+            List<User> results = hibQuery.list();
             return results;
 
     }
