@@ -101,8 +101,9 @@ public class UserController {
     @RequestMapping(value="/delete-{searched}-user-{id}",method = RequestMethod.GET)
     public String deleteSearchedUser(@PathVariable String id, String text, Model model){
         userService.removeUser(id);
+        model.addAttribute("searchedtext", text);
         try {
-            return search(text, model);
+            search(text, model);
         } catch (Exception e) {
             e.printStackTrace();
         }
