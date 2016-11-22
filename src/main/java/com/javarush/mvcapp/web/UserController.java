@@ -68,6 +68,29 @@ public class UserController {
         return "registrationsuccess";
     }
 
+    @RequestMapping(value = { "/edit-{searchedtext}-user-{id}" }, method = RequestMethod.GET)
+    public String editSearchedUser(@PathVariable String id, ModelMap model, String searchedtext) {
+        User user = userService.getUser(id);
+        model.addAttribute("user", user);
+        model.addAttribute("edit", true);
+        model.addAttribute("searched", true);
+        model.addAttribute("searchedtext", searchedtext);
+        return "userform";
+    }
+
+    @RequestMapping(value = {"/edit-{searchedtext}-user-{id}" }, method = RequestMethod.POST)
+    public String updateSearchedUser(@PathVariable String searchedtext, Model model, User user){
+        userService.updateUser(user);
+        model.addAttribute("searchedtext", searchedtext);
+        model.addAttribute("success", "User " + user.getName() + " "+ user.getIsAdmin() + " updated successfully");
+        try {
+            return search(searchedtext, model);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "usersview";
+    }
+
     /* It deletes record for the given id in URL and redirects to /usersview */
     @RequestMapping(value="/delete-user-{id}",method = RequestMethod.GET)
     public String delete(@PathVariable String id){
@@ -78,21 +101,22 @@ public class UserController {
     @RequestMapping(value="/delete-{searched}-user-{id}",method = RequestMethod.GET)
     public String deleteSearchedUser(@PathVariable String id, String text, Model model){
         userService.removeUser(id);
-        model.addAttribute("searchedtext", text);
-        return "searchresults";
+        try {
+            return search(text, model);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "usersview";
     }
 
-    @RequestMapping(value = "/doSearch", method = RequestMethod.POST)
+    @RequestMapping(value = {"/doSearch", "/tosearchresults"}, method = RequestMethod.POST)
     public String search(@RequestParam("searchText") String searchText, Model model) throws Exception
     {
         List<User> allFound = userService.searchUser(searchText);
         model.addAttribute("searchresults", allFound);
         model.addAttribute("searchedtext", searchText);
-
-//        ModelAndView mav = new ModelAndView("searchresults");
-//        mav.addObject("searchresults", allFound);
-//    mav.addObject("searchedtext", searchText);
         return "searchresults";
     }
+
 }
 

@@ -39,7 +39,7 @@
                     <td>${user.age }</td>
                     <th>${user.isAdmin }</th>
                     <th>${user.createdate}</th>
-                    <td><a href="<c:url value='/edit-user-${user.id}' />" class="btn btn-success custom-width">edit</a></td>
+                    <td><a href="<c:url value='/edit-${searchedtext}-user-${user.id}' />" class="btn btn-success custom-width">edit</a></td>
                     <td><a href="<c:url value='/delete-${searchedtext}-user-${user.id}' />" class="btn btn-danger custom-width">delete</a></td>
                 </tr>
             </c:forEach>

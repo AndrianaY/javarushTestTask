@@ -1,12 +1,9 @@
 package com.javarush.mvcapp.domain;
 
 import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
@@ -18,8 +15,7 @@ import java.sql.Timestamp;
 @Table(name = "USERS")
 public class User {
         @Id
-        @GeneratedValue
-        @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "ID")
         private Integer id;
         @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
