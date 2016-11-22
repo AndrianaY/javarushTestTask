@@ -18,8 +18,9 @@ import java.sql.Timestamp;
 @Table(name = "USERS")
 public class User {
         @Id
-        @Column(name = "ID")
         @GeneratedValue
+        @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
+        @Column(name = "ID")
         private Integer id;
         @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
         @Column(name = "Name")
