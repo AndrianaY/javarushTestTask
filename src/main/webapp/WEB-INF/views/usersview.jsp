@@ -17,7 +17,7 @@
     <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading"><span class="lead"><strong>List of Javarush Users </strong></span></div>
-        <form class="navbar-form navbar-left" role="search" action="doSearch" method="post">
+        <form class="navbar-form navbar-left" role="search" action="doSearch" method="get">
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Search" name="searchText" /><br/>
             </div>

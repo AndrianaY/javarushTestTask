@@ -19,7 +19,7 @@ public interface UserService {
 
     public User getUser();
 
-    public List<User> searchUser(String searchText);
+    public List<User> searchUser(String searchText, Integer offset, Integer maxResults);
 //
     public Long count();
 

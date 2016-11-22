@@ -17,8 +17,6 @@
     <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading"><span class="lead"><strong>List of founded by "${searchedtext}" Javarush Users </strong></span></div>
-
-        <form:form method="POST" class="form-horizontal">
         <table class="table table-hover">
             <thead>
             <tr>
@@ -32,26 +30,23 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${searchresults}" var="user" varStatus="itr">
+            <c:forEach items="${found}" var="user" varStatus="itr">
                 <tr>
                     <td>${offset + itr.index +1 }</td>
                     <td>${user.name }</td>
                     <td>${user.age }</td>
                     <th>${user.isAdmin }</th>
                     <th>${user.createdate}</th>
-                    <td><a href="<c:url value='/edit-${searchedtext}-user-${user.id}' />" class="btn btn-success custom-width">edit</a></td>
-                    <td><a href="<c:url value='/delete-${searchedtext}-user-${user.id}' />" class="btn btn-danger custom-width">delete</a></td>
+                    <td><a href="<c:url value='/edit-user-${user.id}' />" class="btn btn-success custom-width">edit</a></td>
+                    <td><a href="<c:url value='/delete-user-${user.id}' />" class="btn btn-danger custom-width">delete</a></td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
         <tag:paginate max="10" offset="${offset}" count="${count}"
-                      uri="/usersview" next="&raquo;" previous="&laquo;" />
-        </form:form>
+                      uri="/searchresults" next="&raquo;" previous="&laquo;" />
 
-        <span class="well floatRight">
-        Go back to <a href="<c:url value='/usersview' />">Users List</a>
-        </span>
+        <button type="submit" class="well"><a href="/newuser">Add New User</a></button>
     </div>
 </div>
 

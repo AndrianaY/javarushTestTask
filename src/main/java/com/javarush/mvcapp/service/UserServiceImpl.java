@@ -57,8 +57,8 @@ public class UserServiceImpl implements UserService {
     }
     @Transactional
     @Override
-    public List<User> searchUser(String searchText) {
-        return userDao.searchUser(searchText);
+    public List<User> searchUser(String searchText, Integer offset, Integer maxResults) {
+        return userDao.searchUser(searchText, offset, maxResults);
     }
 
     @Override

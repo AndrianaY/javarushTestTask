@@ -83,10 +83,10 @@
                         <input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a
                             href="<c:url value='/usersview' />">Cancel</a>
                     </c:when>
-                    <c:when test="${searched}${edit}">
-                        <input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a
-                            href="<c:url value='/tosearchresults' />">Cancel</a>
-                    </c:when>
+                    <%--<c:when test="${searched}${edit}">--%>
+                        <%--<input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a--%>
+                            <%--href="<c:url value='/tosearchresults' />">Cancel</a>--%>
+                    <%--</c:when>--%>
                     <c:otherwise>
                         <input type="submit" value="Register" class="btn btn-primary btn-sm"/> or <a
                             href="<c:url value='/usersview' />">Cancel</a>

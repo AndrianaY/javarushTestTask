@@ -44,7 +44,7 @@ public class UserDaoImpl implements UserDao{
     }
     @SuppressWarnings("unchecked")
     @Override
-    public List<User> searchUser(String searchText) {
+    public List<User> searchUser(String searchText, Integer offset, Integer maxResults) {
 
             FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
         try {
@@ -62,7 +62,9 @@ public class UserDaoImpl implements UserDao{
 
             org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(query, User.class);
 
-            List<User> results = hibQuery.list();
+            List<User> results = hibQuery.setFirstResult(offset!=null?offset:0)
+                    .setMaxResults(maxResults!=null?maxResults:10).list();
+
             return results;
 
     }

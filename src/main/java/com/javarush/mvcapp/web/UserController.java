@@ -27,6 +27,20 @@ public class UserController {
         return "usersview";
 
     }
+
+    @RequestMapping(value = {"/doSearch"}, method = RequestMethod.GET)
+    public String search(@RequestParam("searchText") String searchText, Model model, Integer offset, Integer maxResults) throws Exception
+    {
+        List<User> allFound = userService.searchUser(searchText, offset, maxResults);
+        model.addAttribute("found", allFound);
+        model.addAttribute("searchedtext", searchText);
+        model.addAttribute("count", userService.count());
+        model.addAttribute("offset", offset);
+        return "searchresults";
+    }
+
+
+
     /*It displays a form to input data, here "command" is a reserved request attribute
        *which is used to display object data into form
        */
@@ -78,18 +92,18 @@ public class UserController {
         return "userform";
     }
 
-    @RequestMapping(value = {"/edit-{searchedtext}-user-{id}" }, method = RequestMethod.POST)
-    public String updateSearchedUser(@PathVariable String searchedtext, Model model, User user){
-        userService.updateUser(user);
-        model.addAttribute("searchedtext", searchedtext);
-        model.addAttribute("success", "User " + user.getName() + " "+ user.getIsAdmin() + " updated successfully");
-        try {
-            return search(searchedtext, model);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "usersview";
-    }
+//    @RequestMapping(value = {"/edit-{searchedtext}-user-{id}" }, method = RequestMethod.POST)
+//    public String updateSearchedUser(@PathVariable String searchedtext, Model model, User user){
+//        userService.updateUser(user);
+//        model.addAttribute("searchedtext", searchedtext);
+//        model.addAttribute("success", "User " + user.getName() + " "+ user.getIsAdmin() + " updated successfully");
+//        try {
+//            return search(searchedtext, model);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return "usersview";
+//    }
 
     /* It deletes record for the given id in URL and redirects to /usersview */
     @RequestMapping(value="/delete-user-{id}",method = RequestMethod.GET)
@@ -97,27 +111,19 @@ public class UserController {
         userService.removeUser(id);
         return "redirect:/usersview";
     }
+//
+//    @RequestMapping(value="/delete-{searched}-user-{id}",method = RequestMethod.GET)
+//    public String deleteSearchedUser(@PathVariable String id, String searchedtext, Model model){
+//        userService.removeUser(id);
+//        model.addAttribute("searchedtext", searchedtext);
+//        try {
+//            return search(searchedtext, model);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return "usersview";
+//    }
 
-    @RequestMapping(value="/delete-{searched}-user-{id}",method = RequestMethod.GET)
-    public String deleteSearchedUser(@PathVariable String id, String text, Model model){
-        userService.removeUser(id);
-        model.addAttribute("searchedtext", text);
-        try {
-            search(text, model);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "usersview";
-    }
-
-    @RequestMapping(value = {"/doSearch", "/tosearchresults"}, method = RequestMethod.POST)
-    public String search(@RequestParam("searchText") String searchText, Model model) throws Exception
-    {
-        List<User> allFound = userService.searchUser(searchText);
-        model.addAttribute("searchresults", allFound);
-        model.addAttribute("searchedtext", searchText);
-        return "searchresults";
-    }
 
 }
 
