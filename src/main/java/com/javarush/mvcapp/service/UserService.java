@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserService {
     public void addUser(User user);
 
-    public List<User> listUser(Integer offset, Integer maxResults);
+    public List<User> listUser(int page);
 
     public void removeUser(String id);
 

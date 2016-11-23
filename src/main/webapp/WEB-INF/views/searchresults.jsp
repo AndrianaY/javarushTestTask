@@ -43,8 +43,9 @@
             </c:forEach>
             </tbody>
         </table>
-        <tag:paginate max="10" offset="${offset}" count="${count}"
-                      uri="/searchresults" next="&raquo;" previous="&laquo;" />
+
+        <%--<tag:paginate max="10" offset="${offset}" count="${count}"--%>
+                      <%--uri="/searchresults" next="&raquo;" previous="&laquo;" />--%>
 
         <button type="submit" class="well"><a href="/newuser">Add New User</a></button>
     </div>

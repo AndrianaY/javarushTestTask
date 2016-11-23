@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 /**
  * Created by Andriana_Yarmoliuk on 11/11/2016.
@@ -20,10 +19,22 @@ public class UserController {
     @Autowired
     private UserService userService;
     @RequestMapping(value = { "/","usersview"}, method = RequestMethod.GET)
-    public String list(Model model, Integer offset, Integer maxResults){
-        model.addAttribute("users", userService.listUser(offset, maxResults));
-        model.addAttribute("count", userService.count());
-        model.addAttribute("offset", offset);
+    public String list(@RequestParam(value = "page", required = false) Integer page, Model model){
+        int pageNumber=1;
+        if(page != null) {
+            model.addAttribute("page", page);
+            pageNumber = page;
+        } else {
+            model.addAttribute("page", 1);
+        }
+        String nextPage = (pageNumber +1) + "";
+        model.addAttribute("users", userService.listUser(pageNumber));
+        String myUrl = "pagingUser.jsp?page=" + nextPage;
+        model.addAttribute("myUrl", myUrl);
+        int startpage = pageNumber - 5 > 0?pageNumber - 5:1;
+        int endpage = startpage + 10;
+        model.addAttribute("startpage", startpage);
+        model.addAttribute("endpage", endpage);
         return "usersview";
 
     }

@@ -37,22 +37,28 @@
             </thead>
             <tbody>
             <c:forEach items="${users}" var="user" varStatus="itr">
-                <tr>
-                    <td>${offset + itr.index +1 }</td>
-                    <td>${user.name }</td>
-                    <td>${user.age }</td>
-                    <th>${user.isAdmin }</th>
-                    <th>${user.createdate}</th>
-                    <td><a href="<c:url value='/edit-user-${user.id}' />" class="btn btn-success custom-width">edit</a></td>
-                    <td><a href="<c:url value='/delete-user-${user.id}' />" class="btn btn-danger custom-width">delete</a></td>
-                </tr>
+            <tr>
+                <td>${page + itr.index}</td>
+                <td>${user.name }</td>
+                <td>${user.age }</td>
+                <th>${user.isAdmin }</th>
+                <th>${user.createdate}</th>
+                <td><a href="<c:url value='/edit-user-${user.id}' />" class="btn btn-success custom-width">edit</a></td>
+                <td><a href="<c:url value='/delete-user-${user.id}' />" class="btn btn-danger custom-width">delete</a></td>
+            </tr>
             </c:forEach>
+
+            <%--<tr>--%>
+                <%--<td colspan="2"></td>--%>
+                <%--<td colspan="2"><a href="${myUrl}">nextPage</a></td>--%>
+            <%--</tr>--%>
             </tbody>
         </table>
-        <tag:paginate max="10" offset="${offset}" count="${count}"
-                      uri="/usersview" next="&raquo;" previous="&laquo;" />
-
         <button type="submit" class="well"><a href="/newuser">Add New User</a></button>
+        <c:forEach begin="${startpage}" end="${endpage}" var="p">
+            <tr class="well"><a href="${myUrl}">${p}</a></tr>
+        </c:forEach>
+
     </div>
 </div>
 

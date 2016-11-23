@@ -17,6 +17,7 @@ import java.util.List;
 public class UserDaoImpl implements UserDao{
     @Autowired
     private SessionFactory sessionFactory;
+    private static final int limitResultsPerPage = 5;
 
     @Override
     public void addUser(User user) {
@@ -25,14 +26,12 @@ public class UserDaoImpl implements UserDao{
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<User> listUser(Integer offset, Integer maxResults) {
-
-        return sessionFactory.openSession()
-                .createCriteria(User.class)
-                .setFirstResult(offset!=null?offset:0)
-                .setMaxResults(maxResults!=null?maxResults:10)
+    public List<User> listUser(int page) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("from User")
+                .setFirstResult(page * limitResultsPerPage)
+                .setMaxResults(limitResultsPerPage)
                 .list();
-
     }
 
     @SuppressWarnings("unchecked")

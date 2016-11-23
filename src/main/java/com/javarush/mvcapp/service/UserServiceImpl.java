@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService {
     }
     @Transactional
     @Override
-    public List<User> listUser(Integer offset, Integer maxResults) {
-        return userDao.listUser(offset, maxResults);
+    public List<User> listUser(int page) {
+        return userDao.listUser(page);
     }
 
     @Transactional
