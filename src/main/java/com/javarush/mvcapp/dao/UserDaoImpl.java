@@ -157,15 +157,4 @@ public class UserDaoImpl implements UserDao {
     public User getNewUser() {
         return new User();
     }
-
-    @Override
-    public Long count() {
-        return (Long) sessionFactory.openSession()
-                .createCriteria(User.class)
-                .setProjection(Projections.rowCount())
-                .uniqueResult();
-
-    }
-
-
 }

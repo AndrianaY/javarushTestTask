@@ -19,8 +19,6 @@ public interface UserDao {
 
     public User getNewUser();
 
-    public Long count();
-
     public List<User> listUser();
 
     public List<User> searchUser(int page, String searchText);
