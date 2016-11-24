@@ -8,9 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
 /**
  * Created by Andriana_Yarmoliuk on 11/11/2016.
  */
@@ -19,49 +16,51 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @RequestMapping(value = { "/","usersview", "usersview?{page}="}, method = RequestMethod.GET)
-    public String list(@RequestParam(value = "page", required = false) Integer page, Model model){
-        int pageNumber=1;
-        if(page != null) {
-            model.addAttribute("page", page);
-            pageNumber = page;
-        } else {
-            model.addAttribute("page", 1);
-        }
-        model.addAttribute("users", userService.listUser(pageNumber));
-        String myUrl = "usersview?page=";
-        model.addAttribute("myUrl", myUrl);
-        int startpage = 1;
-        int endpage = userService.amountOfPagesAllUsers();
-        model.addAttribute("startpage", startpage);
-        model.addAttribute("endpage", endpage);
-        model.addAttribute("pagesize", userService.listUser(pageNumber).size());
-        return "usersview";
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String init(){
+        return "redirect:/users";
     }
 
-    @RequestMapping(value = {"/doSearch", "searchresults", "searchresults?{searchText}=?{page}="}, method = RequestMethod.GET)
-    public String search(@RequestParam(value = "page", required = false) Integer page, Model model,String searchText) throws Exception
-    {
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public String list(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page, Model model){
+
+        model.addAttribute("page", page);
+
+        int endpage = userService.amountOfPagesAllUsers();
+
+        model.addAttribute("endpage", endpage);
+
+
+
+        model.addAttribute("users", userService.listUser(page));
+        return "usersview";
+    }
+
+    @RequestMapping(value = {"search"}, method = RequestMethod.GET)
+    public String search(@RequestParam(value = "page", required = false) Integer page, Model model,@RequestParam(value = "searchText") String searchText) throws Exception {
         int pageNumber=1;
         if(page != null) {
             model.addAttribute("page", page);
             pageNumber = page;
         } else {
-            model.addAttribute("page", 1);
+            model.addAttribute("page", pageNumber);
         }
-        model.addAttribute("found", userService.searchUser(pageNumber, searchText));
-        model.addAttribute("searchText", searchText);
-        String myUrl = "searchresults?searchText=" + searchText + "?page=";
-        model.addAttribute("myUrl", myUrl);
-        int startpage = 1;
+
+
+
         int endpage = userService.amountOfFoundedPages(searchText);
-        model.addAttribute("startpage", startpage);
+
         model.addAttribute("endpage", endpage);
-        model.addAttribute("pagesize", userService.searchUser(searchText).size());
+
+
+        model.addAttribute("found", userService.searchUser(pageNumber, searchText));
+
+        model.addAttribute("searchText", searchText);
 
         return "searchresults";
     }
+
 
 
 

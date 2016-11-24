@@ -16,7 +16,15 @@
 <div class="generic-container" width="100%">
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading"><span class="lead"><strong>List of founded by "${searchText}" Javarush Users </strong></span></div>
+        <div class="panel-heading"><span class="lead"><strong>List of founded by name "${searchText}" Javarush Users </strong></span></div>
+
+
+            <c:choose>
+                <c:when test="${empty found}" >
+                    It looks like no users with name "${searchText}" are found....
+                </c:when>
+
+                <c:otherwise>
         <table class="table table-hover">
             <thead>
             <tr>
@@ -30,22 +38,28 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${found}" var="user" varStatus="itr">
-                <tr>
-                    <td>${pagesize * (page - 1) + itr.index +1}</td>
-                    <td>${user.name }</td>
-                    <td>${user.age }</td>
-                    <th>${user.isAdmin }</th>
-                    <th>${user.createdate}</th>
-                    <td><a href="<c:url value='/edit-user-${user.id}' />" class="btn btn-success custom-width">edit</a></td>
-                    <td><a href="<c:url value='/delete-user-${user.id}' />" class="btn btn-danger custom-width">delete</a></td>
-                </tr>
-            </c:forEach>
+                    <c:forEach items="${found}" var="user" varStatus="itr">
+                        <tr>
+                            <td>${7 * (page - 1) + itr.index +1}</td>
+                            <td>${user.name }</td>
+                            <td>${user.age }</td>
+                            <th>${user.isAdmin }</th>
+                            <th>${user.createdate}</th>
+                            <td><a href="<c:url value='/edit-user-${user.id}' />" class="btn btn-success custom-width">edit</a></td>
+                            <td><a href="<c:url value='/delete-user-${user.id}' />" class="btn btn-danger custom-width">delete</a></td>
+                        </tr>
+                    </c:forEach>
+
             </tbody>
         </table>
-        <c:forEach begin="${startpage}" end="${endpage}" var="p">
-            <tr class="well"><a href="<c:url value='${myUrl}${p}' />">${p}</a></tr>
-        </c:forEach>
+                    <c:forEach begin="1" end="${endpage}" var="page">
+                        <tr class="well"><a href="<c:url value='/search?searchText=${searchText}&page=${page}' />">${page}</a></tr>
+
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+
+        <div class="form-actions floatRight">Back to <a href="<c:url value='/users' />">list of all users</a></div>
 
     </div>
 </div>

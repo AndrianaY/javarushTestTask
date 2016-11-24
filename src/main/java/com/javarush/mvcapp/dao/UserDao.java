@@ -1,7 +1,6 @@
 package com.javarush.mvcapp.dao;
 
 import com.javarush.mvcapp.domain.User;
-
 import java.util.List;
 
 /**
@@ -30,7 +29,6 @@ public interface UserDao {
 
     public int amountOfPagesFoundedUsers(String text);
 
-    public List<User> searchUser(String searchText);//    public Criteria createEntityCriteria();
-//
-//    public void save();
+    public List<User> searchUser(String searchText);
+
 }

@@ -5,7 +5,6 @@ import com.javarush.mvcapp.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 /**
@@ -22,6 +21,7 @@ public class UserServiceImpl implements UserService {
     public void addUser(User user) {
         userDao.addUser(user);
     }
+
     @Transactional
     @Override
     public List<User> listUser(int page) {
@@ -40,13 +40,11 @@ public class UserServiceImpl implements UserService {
         return userDao.amountOfPagesAllUsers();
     }
     @Transactional
-
     @Override
     public int amountOfFoundedPages(String text) {
         return userDao.amountOfPagesFoundedUsers(text);
     }
     @Transactional
-
     @Override
     public List<User> searchUser(String searchText) {
         return userDao.searchUser(searchText);
@@ -82,11 +80,4 @@ public class UserServiceImpl implements UserService {
     public Long count() {
         return userDao.count();
     }
-
-
-//
-//    @Override
-//    public void save() {
-//        userDao.save();
-//    }
 }

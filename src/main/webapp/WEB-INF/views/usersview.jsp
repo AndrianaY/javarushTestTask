@@ -17,7 +17,7 @@
     <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading"><span class="lead"><strong>List of Javarush Users </strong></span></div>
-        <form class="navbar-form navbar-left" role="search" action="/doSearch" method="get">
+        <form class="navbar-form navbar-left" role="search" action="/search" method="get">
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Search" name="searchText" /><br/>
             </div>
@@ -38,7 +38,7 @@
             <tbody>
             <c:forEach items="${users}" var="user" varStatus="itr">
             <tr>
-                <td>${pagesize * (page - 1) + itr.index +1}</td>
+                <td>${7 * (page - 1) + itr.index +1}</td>
                 <td>${user.name }</td>
                 <td>${user.age }</td>
                 <th>${user.isAdmin }</th>
@@ -50,8 +50,8 @@
             </tbody>
         </table>
         <button type="submit" class="well"><a href="/newuser">Add New User</a></button>
-        <c:forEach begin="${startpage}" end="${endpage}" var="p">
-            <tr class="well"><a href="<c:url value='${myUrl}${p}' />">${p}</a></tr>
+        <c:forEach begin="1" end="${endpage}" var="p">
+            <tr class="well"><a href="<c:url value='/users?page=${p}' />">${p}</a></tr>
         </c:forEach>
 
     </div>
