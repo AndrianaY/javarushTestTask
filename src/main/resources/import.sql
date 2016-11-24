@@ -1,3 +1,4 @@
+create table USERS (ID integer not null auto_increment, AGE integer, CREATEDATE datetime, ISADMIN bit, Name varchar(255), primary key (ID));
 insert INTO users(name, age, isAdmin, createDate) VALUES ('Andriana', 31, 1, '2013-08-05 18:19:03');
 insert INTO users(name, age, isAdmin, createDate) VALUES ('andriana', 20, 0, now());
 insert INTO users(name, age, isAdmin, createDate) VALUES ('Bob', 31, 0, '2013-08-05 18:19:03');
