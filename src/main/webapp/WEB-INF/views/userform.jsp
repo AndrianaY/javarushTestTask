@@ -33,9 +33,6 @@
                 <label class="col-md-3 control-lable" for="name">Name</label>
                 <div class="col-md-7">
                     <form:input type="text" path="name" id="name" class="form-control input-sm"/>
-                    <%--<div class="has-error">--%>
-                        <%--<form:errors path="name" class="help-inline"/>--%>
-                    <%--</div>--%>
                 </div>
             </div>
         </div>
@@ -45,33 +42,26 @@
                 <label class="col-md-3 control-lable" for="age">Age</label>
                 <div class="col-md-7">
                     <form:input type="text" path="age" id="age" class="form-control input-sm" />
-                    <%--<div class="has-error">--%>
-                        <%--<form:errors path="age" class="help-inline"/>--%>
-                    <%--</div>--%>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="form-group col-md-12">
-                <label class="col-md-3 control-lable" for="isAdmin">Profile type</label>
+                <%--<label class="col-md-3 control-lable" for="isAdmin">Is role Admin</label>--%>
+                <label class="col-md-3 control-lable" for="isAdmin">Profile role</label>
                 <div class="col-md-7">
-                    <form:input type="text" path="isAdmin" id="isAdmin" class="form-control input-sm" />
-                    <%--<div class="has-error">--%>
-                        <%--<form:errors path="isAdmin" class="help-inline"/>--%>
-                    <%--</div>--%>
+                        <form:radiobutton path="isAdmin" id="isAdmin" value="true"/>Admin
+                        <form:radiobutton path="isAdmin" id="isAdmin" value="false"/>Other
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="form-group col-md-12">
-                <label class="col-md-3 control-lable" for="createdate">create date</label>
+                <label class="col-md-3 control-lable" for="createdate">Create date</label>
                 <div class="col-md-7">
                     <form:input type="text" readonly="true" path="createdate" id="createdate" class="form-control input-sm" modelAttribute="date" value="${date}"/>
-                    <%--<div class="has-error">--%>
-                        <%--<form:errors path="createdate" class="help-inline"/>--%>
-                    <%--</div>--%>
                 </div>
             </div>
         </div>
@@ -81,15 +71,11 @@
                 <c:choose>
                     <c:when test="${edit}">
                         <input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a
-                            href="<c:url value='/usersview' />">Cancel</a>
+                            href="<c:url value='/users' />">Cancel</a>
                     </c:when>
-                    <%--<c:when test="${searched}${edit}">--%>
-                        <%--<input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a--%>
-                            <%--href="<c:url value='/tosearchresults' />">Cancel</a>--%>
-                    <%--</c:when>--%>
                     <c:otherwise>
                         <input type="submit" value="Register" class="btn btn-primary btn-sm"/> or <a
-                            href="<c:url value='/usersview' />">Cancel</a>
+                            href="<c:url value='/users' />">Cancel</a>
                     </c:otherwise>
                 </c:choose>
             </div>

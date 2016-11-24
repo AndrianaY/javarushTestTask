@@ -1,8 +1,8 @@
 package com.javarush.mvcapp.domain;
 
+import com.sun.istack.internal.NotNull;
 import org.hibernate.search.annotations.*;
 import org.hibernate.search.annotations.Index;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -16,19 +16,21 @@ import java.sql.Timestamp;
 public class User {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @NotNull
         @Column(name = "ID")
         private Integer id;
         @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
+        @NotNull
         @Column(name = "Name")
         private String name;
-        @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
+        @NotNull
         @Column(name = "AGE")
-        private int age;
-
+        private Integer age;
+        @NotNull
         @Column(name = "ISADMIN")
-        private boolean isAdmin;
-
+        private Boolean isAdmin;
         @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
+        @NotNull
         @Column(name = "CREATEDATE")
         private Timestamp createdate;
 
@@ -58,7 +60,7 @@ public class User {
                 this.name = firstname;
         }
 
-        public int getAge() {
+        public Integer getAge() {
                 return age;
         }
 
@@ -66,7 +68,7 @@ public class User {
                 this.age = age;
         }
 
-        public boolean getIsAdmin() {
+        public Boolean getIsAdmin() {
                 return isAdmin;
         }
 

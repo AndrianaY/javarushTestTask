@@ -75,9 +75,4 @@ public class UserServiceImpl implements UserService {
     public List<User> searchUser(int page, String searchText) {
         return userDao.searchUser(page, searchText);
     }
-
-    @Override
-    public Long count() {
-        return userDao.count();
-    }
 }

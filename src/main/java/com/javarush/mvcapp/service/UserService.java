@@ -20,8 +20,6 @@ public interface UserService {
     public User getUser();
 
     public List<User> searchUser(int page, String searchText);
-//
-    public Long count();
 
     public List<User> listUser();
 
@@ -30,5 +28,4 @@ public interface UserService {
     public int amountOfFoundedPages(String text);
 
     public List<User> searchUser(String searchText);
-//    public void save();
 }

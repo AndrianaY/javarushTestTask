@@ -16,12 +16,14 @@
 <div class="generic-container" width="100%">
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading"><span class="lead"><strong>List of founded by name "${searchText}" Javarush Users </strong></span></div>
+        <div class="panel-heading"><span class="lead"><strong>List of Javarush users with name "${searchText}"</strong></span></div>
 
 
             <c:choose>
                 <c:when test="${empty found}" >
-                    It looks like no users with name "${searchText}" are found....
+                    <div class="alert alert-success lead">
+                        It looks like no users with name "${searchText}" are found....
+                    </div>
                 </c:when>
 
                 <c:otherwise>
@@ -31,10 +33,8 @@
                 <th>N#</th>
                 <th>Name</th>
                 <th>Age</th>
-                <th>isAdmin</th>
-                <th>create date</th>
-                <th>edit</th>
-                <th>delete</th>
+                <th>Role</th>
+                <th>Create date</th>
             </tr>
             </thead>
             <tbody>
@@ -43,7 +43,15 @@
                             <td>${7 * (page - 1) + itr.index +1}</td>
                             <td>${user.name }</td>
                             <td>${user.age }</td>
-                            <th>${user.isAdmin }</th>
+                            <c:choose>
+                                <c:when test="${user.isAdmin}">
+                                    <th>Admin</th>
+                                </c:when>
+                                <c:otherwise>
+                                    <th>Other</th>
+                                </c:otherwise>
+                            </c:choose>
+                            <th></th>
                             <th>${user.createdate}</th>
                             <td><a href="<c:url value='/edit-user-${user.id}' />" class="btn btn-success custom-width">edit</a></td>
                             <td><a href="<c:url value='/delete-user-${user.id}' />" class="btn btn-danger custom-width">delete</a></td>
@@ -52,16 +60,21 @@
 
             </tbody>
         </table>
-                    <c:forEach begin="1" end="${endpage}" var="page">
-                        <tr class="well"><a href="<c:url value='/search?searchText=${searchText}&page=${page}' />">${page}</a></tr>
 
-                    </c:forEach>
-                </c:otherwise>
-            </c:choose>
-
-        <div class="form-actions floatRight">Back to <a href="<c:url value='/users' />">list of all users</a></div>
 
     </div>
+    <div class="well">Go to page #
+    <c:forEach begin="1" end="${endpage}" var="page">
+        <tr class="well"><a href="<c:url value='/search?searchText=${searchText}&page=${page}' />">${page}</a></tr>
+    </c:forEach>
+    </div>
+
+    </c:otherwise>
+    </c:choose>
+
+    <span class="well floatRight">
+        Go to <a href="<c:url value='/users' />">Users List</a>
+    </span>
 </div>
 
 </body>
