@@ -51,12 +51,6 @@
     </filter-mapping>
 
 
-    <jsp-config>
-        <taglib>
-            <taglib-uri>http://journaldev.com/jsp/tlds/mytags</taglib-uri>
-            <taglib-location>/WEB-INF/taglibs/customTaglib.tld</taglib-location>
-        </taglib>
-    </jsp-config>
 
     <!--<filter>-->
         <!--<filter-name>springSecurityFilterChain</filter-name>-->
