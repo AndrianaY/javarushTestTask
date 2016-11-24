@@ -17,8 +17,7 @@ import java.util.List;
 public class UserDaoImpl implements UserDao{
     @Autowired
     private SessionFactory sessionFactory;
-    private static final int limitResultsPerPage = 5;
-
+    private static final int limitResultsPerPage = 7;
     @Override
     public void addUser(User user) {
         sessionFactory.getCurrentSession().save(user);
@@ -43,7 +42,7 @@ public class UserDaoImpl implements UserDao{
     }
     @SuppressWarnings("unchecked")
     @Override
-    public List<User> searchUser(String searchText, Integer offset, Integer maxResults) {
+    public List<User> searchUser(int page, String searchText) {
 
             FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
         try {
@@ -61,13 +60,74 @@ public class UserDaoImpl implements UserDao{
 
             org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(query, User.class);
 
-            List<User> results = hibQuery.setFirstResult(offset!=null?offset:0)
-                    .setMaxResults(maxResults!=null?maxResults:10).list();
+            List<User> results = hibQuery
+                    .setFirstResult(page * limitResultsPerPage)
+                    .setMaxResults(limitResultsPerPage)
+                    .list();
 
             return results;
 
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public int amountOfPagesAllUsers() {
+        List<User> results = sessionFactory.getCurrentSession().createQuery("from User")
+                .list();
+        if ((results.size() % limitResultsPerPage) == 0)
+            return results.size() / limitResultsPerPage;
+        else
+            return results.size() / limitResultsPerPage +1;
+    }
+    @SuppressWarnings("unchecked")
+
+    @Override
+    public int amountOfPagesFoundedUsers(String text) {
+        FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
+        try {
+            fullTextSession.createIndexer().startAndWait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        QueryBuilder qb = fullTextSession.getSearchFactory()
+                .buildQueryBuilder().forEntity(User.class).get();
+        org.apache.lucene.search.Query query = qb
+                .keyword().onFields("name")
+                .matching(text)
+                .createQuery();
+
+        org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(query, User.class);
+
+        List<User> results = hibQuery.list();
+        if ((results.size() % limitResultsPerPage) == 0)
+            return results.size() / limitResultsPerPage;
+        else
+            return results.size() / limitResultsPerPage +1;
+    }
+    @SuppressWarnings("unchecked")
+
+    @Override
+    public List<User> searchUser(String searchText) {
+        FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
+        try {
+            fullTextSession.createIndexer().startAndWait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        QueryBuilder qb = fullTextSession.getSearchFactory()
+                .buildQueryBuilder().forEntity(User.class).get();
+        org.apache.lucene.search.Query query = qb
+                .keyword().onFields("name")
+                .matching(searchText)
+                .createQuery();
+
+        org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(query, User.class);
+
+        List<User> results = hibQuery.list();
+        return results;
+    }
 
 
     @Override

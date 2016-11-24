@@ -24,9 +24,13 @@ public interface UserDao {
 
     public List<User> listUser();
 
-    public List<User> searchUser(String searchText, Integer offset, Integer maxResults);
+    public List<User> searchUser(int page, String searchText);
 
-//    public Criteria createEntityCriteria();
+    public int amountOfPagesAllUsers();
+
+    public int amountOfPagesFoundedUsers(String text);
+
+    public List<User> searchUser(String searchText);//    public Criteria createEntityCriteria();
 //
 //    public void save();
 }

@@ -16,7 +16,7 @@
 <div class="generic-container" width="100%">
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading"><span class="lead"><strong>List of founded by "${searchedtext}" Javarush Users </strong></span></div>
+        <div class="panel-heading"><span class="lead"><strong>List of founded by "${searchText}" Javarush Users </strong></span></div>
         <table class="table table-hover">
             <thead>
             <tr>
@@ -32,7 +32,7 @@
             <tbody>
             <c:forEach items="${found}" var="user" varStatus="itr">
                 <tr>
-                    <td>${offset + itr.index +1 }</td>
+                    <td>${pagesize * (page - 1) + itr.index +1}</td>
                     <td>${user.name }</td>
                     <td>${user.age }</td>
                     <th>${user.isAdmin }</th>
@@ -43,11 +43,10 @@
             </c:forEach>
             </tbody>
         </table>
+        <c:forEach begin="${startpage}" end="${endpage}" var="p">
+            <tr class="well"><a href="<c:url value='${myUrl}${p}' />">${p}</a></tr>
+        </c:forEach>
 
-        <%--<tag:paginate max="10" offset="${offset}" count="${count}"--%>
-                      <%--uri="/searchresults" next="&raquo;" previous="&laquo;" />--%>
-
-        <button type="submit" class="well"><a href="/newuser">Add New User</a></button>
     </div>
 </div>
 

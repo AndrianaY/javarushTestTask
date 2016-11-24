@@ -19,10 +19,16 @@ public interface UserService {
 
     public User getUser();
 
-    public List<User> searchUser(String searchText, Integer offset, Integer maxResults);
+    public List<User> searchUser(int page, String searchText);
 //
     public Long count();
 
     public List<User> listUser();
+
+    public int amountOfPagesAllUsers();
+
+    public int amountOfFoundedPages(String text);
+
+    public List<User> searchUser(String searchText);
 //    public void save();
 }

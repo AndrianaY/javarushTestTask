@@ -34,6 +34,23 @@ public class UserServiceImpl implements UserService {
         return userDao.listUser();
     }
 
+    @Transactional
+    @Override
+    public int amountOfPagesAllUsers() {
+        return userDao.amountOfPagesAllUsers();
+    }
+    @Transactional
+
+    @Override
+    public int amountOfFoundedPages(String text) {
+        return userDao.amountOfPagesFoundedUsers(text);
+    }
+    @Transactional
+
+    @Override
+    public List<User> searchUser(String searchText) {
+        return userDao.searchUser(searchText);
+    }
 
     @Transactional
     @Override
@@ -57,8 +74,8 @@ public class UserServiceImpl implements UserService {
     }
     @Transactional
     @Override
-    public List<User> searchUser(String searchText, Integer offset, Integer maxResults) {
-        return userDao.searchUser(searchText, offset, maxResults);
+    public List<User> searchUser(int page, String searchText) {
+        return userDao.searchUser(page, searchText);
     }
 
     @Override

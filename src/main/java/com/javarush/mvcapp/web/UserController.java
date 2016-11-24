@@ -2,14 +2,15 @@ package com.javarush.mvcapp.web;
 
 import com.javarush.mvcapp.domain.User;
 import com.javarush.mvcapp.service.UserService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+
 /**
  * Created by Andriana_Yarmoliuk on 11/11/2016.
  */
@@ -18,7 +19,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @RequestMapping(value = { "/","usersview"}, method = RequestMethod.GET)
+    @RequestMapping(value = { "/","usersview", "usersview?{page}="}, method = RequestMethod.GET)
     public String list(@RequestParam(value = "page", required = false) Integer page, Model model){
         int pageNumber=1;
         if(page != null) {
@@ -27,26 +28,38 @@ public class UserController {
         } else {
             model.addAttribute("page", 1);
         }
-        String nextPage = (pageNumber +1) + "";
         model.addAttribute("users", userService.listUser(pageNumber));
-        String myUrl = "pagingUser.jsp?page=" + nextPage;
+        String myUrl = "usersview?page=";
         model.addAttribute("myUrl", myUrl);
-        int startpage = pageNumber - 5 > 0?pageNumber - 5:1;
-        int endpage = startpage + 10;
+        int startpage = 1;
+        int endpage = userService.amountOfPagesAllUsers();
         model.addAttribute("startpage", startpage);
         model.addAttribute("endpage", endpage);
+        model.addAttribute("pagesize", userService.listUser(pageNumber).size());
         return "usersview";
 
     }
 
-    @RequestMapping(value = {"/doSearch"}, method = RequestMethod.GET)
-    public String search(@RequestParam("searchText") String searchText, Model model, Integer offset, Integer maxResults) throws Exception
+    @RequestMapping(value = {"/doSearch", "searchresults", "searchresults?{searchText}=?{page}="}, method = RequestMethod.GET)
+    public String search(@RequestParam(value = "page", required = false) Integer page, Model model,String searchText) throws Exception
     {
-        List<User> allFound = userService.searchUser(searchText, offset, maxResults);
-        model.addAttribute("found", allFound);
-        model.addAttribute("searchedtext", searchText);
-        model.addAttribute("count", userService.count());
-        model.addAttribute("offset", offset);
+        int pageNumber=1;
+        if(page != null) {
+            model.addAttribute("page", page);
+            pageNumber = page;
+        } else {
+            model.addAttribute("page", 1);
+        }
+        model.addAttribute("found", userService.searchUser(pageNumber, searchText));
+        model.addAttribute("searchText", searchText);
+        String myUrl = "searchresults?searchText=" + searchText + "?page=";
+        model.addAttribute("myUrl", myUrl);
+        int startpage = 1;
+        int endpage = userService.amountOfFoundedPages(searchText);
+        model.addAttribute("startpage", startpage);
+        model.addAttribute("endpage", endpage);
+        model.addAttribute("pagesize", userService.searchUser(searchText).size());
+
         return "searchresults";
     }
 
